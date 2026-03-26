@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { createServer } from "http";
 
 import { ingestRouter } from "./routes/ingest.js";
+import { eventsRouter } from "./routes/events.js";
 import { queryRouter } from "./routes/queries.js";
 import { aiRouter } from "./routes/ai.js";
 import { dashboardRouter } from "./routes/dashboards.js";
@@ -48,6 +49,7 @@ async function bootstrap() {
   // ── Protected routes ───────────────────────────────────────────────────────
   app.use("/v1", authMiddleware);
   app.use("/v1/projects", projectRouter);
+  app.use("/v1/events", eventsRouter);
   app.use("/v1/queries", queryRouter(db));
   app.use("/v1/ai", aiRouter(db));
   app.use("/v1/dashboards", dashboardRouter);
